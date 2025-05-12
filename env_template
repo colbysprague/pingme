@@ -1,0 +1,29 @@
+# ===============================================
+# Template for .env file
+# Copy this into a new file named `.env`
+# Follow the instructions below to get your credentials
+# ===============================================
+
+# Your Telegram bot token (from BotFather)
+# ⚠️ Keep this token private! Anyone with access to it can send messages from your bot.
+TELEGRAM_BOT_TOKEN=
+
+# Your Telegram chat ID (usually a numeric ID of your account or group)
+# This is where the bot will send notifications.
+TELEGRAM_CHAT_ID=
+
+# ===============================================
+# Setup Instructions
+# ===============================================
+
+# 1. Create a bot on Telegram:
+#    - Open Telegram and search for @BotFather
+#    - Start a chat and use the command: /newbot
+#    - Follow the prompts to choose a name and username
+#    - BotFather will give you a token → copy it into TELEGRAM_BOT_TOKEN above
+
+# 2. Get your Chat ID:
+#    - Start a chat with your new bot on Telegram (search its username and send it a message)
+#    - Then go to: https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
+#      Replace <YOUR_BOT_TOKEN> with your token
+#    - Look for a message like: `"chat":{"id":123456789,...}` → copy that number into TELEGRAM_CHAT_ID
