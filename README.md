@@ -16,7 +16,7 @@ Setup
 
 1. Clone the repo and install dependencies
 
-```git clone https://github.com/colbysprague/pingme.git```
+   ```git clone https://github.com/colbysprague/pingme.git```
 
 2. Set up your .env file and copy credentials as explained below
 
