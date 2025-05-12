@@ -5,6 +5,7 @@ import sys
 import platform
 import socket
 import shlex
+from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables from .env in the same directory
@@ -41,16 +42,17 @@ def get_machine_info():
 
 def run_task(command_with_args):
     start_time = time.time()
+    started_at = timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     exit_code = os.system(command_with_args)
     duration = time.time() - start_time
 
     # Emoji and status message
     if exit_code == 0:
         emoji = "✅"
-        status_line = "*Success*"
+        status_message = "Success"
     else:
         emoji = "❌"
-        status_line = f"*Failed* \\(exit code {exit_code}\\)"
+        status_message = f"Failed \\(exit code {exit_code}\\)"
 
     hostname, os_info = get_machine_info()
 
@@ -58,8 +60,11 @@ def run_task(command_with_args):
     escaped_cmd = escape_markdown(command_with_args)
 
     message = (
-        f"{emoji} *{status_line}*\n\n"
+        f"{escaped_cmd} completed w status: {status_message} {emoji}\n"
+        f"``` {escaped_cmd} ```"
+        f"*Status*: `{status_message}`\n"
         f"*Command:* `{escaped_cmd}`\n"
+        f"*Started at:* `{started_at}`\n"
         f"*Duration:* `{duration:.2f}` seconds\n"
         f"*Machine:* `{hostname}`\n"
         f"*OS:* `{escape_markdown(os_info)}`"
