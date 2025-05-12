@@ -10,7 +10,7 @@ Features
 - Shows an emoji if the task fails (with exit code)
 - Includes how long the task took
 - Shows the machine name and operating system
-- Simple Bash-friendly interface: pingme <your command>
+- Simple Bash-friendly interface: ```pingme <sleep 1>```
 
 Setup
 
@@ -18,14 +18,10 @@ Setup
 
 git clone https://github.com/colbysprague/pingme.git
 
-2. Set up your .env file
+2. Set up your .env file and copy credentials as explained below
 
-Copy the .env.template to .env and fill in your credentials:
-
-cp .env.template .env
-
-.env file example:
-
+   ``` cp env_template .env```
+```
 # Your Telegram bot token from BotFather
 TELEGRAM_BOT_TOKEN=your_bot_token_here
 
@@ -47,18 +43,31 @@ Chat ID
   https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates
 - Find "chat":{"id":YOUR_CHAT_ID} in the JSON
 
+```
+
 Usage
 
 Run a command and get notified:
 
-python pingme.py sleep 5
+```python pingme.py sleep 5``` 
+
+Sample output: 
+
+```
+✅ Success
+
+Command: sleep 5
+Duration: 4.16 seconds
+Machine: xxxxxxxx
+OS: Linux xxxxxxxx
+```
 
 Or create a Bash alias for convenience:
 
 Add this to your ~/.bashrc or ~/.zshrc:
 
-alias pingme='python /full/path/to/pingme.py'
+```alias pingme='python /full/path/to/pingme.py'```
 
 Now you can run:
 
-pingme sleep 5
+```pingme sleep 5```
