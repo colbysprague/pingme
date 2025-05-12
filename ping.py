@@ -7,6 +7,7 @@ import socket
 import shlex
 import subprocess
 from telegram_notifier import TelegramNotifier
+from teams_notifier import TeamsNotifier 
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -96,6 +97,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     task_command = ' '.join(shlex.quote(arg) for arg in sys.argv[1:])
-    notifier = TelegramNotifier()
+    notifier = TeamsNotifier()
     run_task(task_command, notifier)
 
