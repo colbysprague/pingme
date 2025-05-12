@@ -64,9 +64,9 @@ OS: Linux xxxxxxxx
 
 Or create a Bash alias for convenience:
 
-Add this to your ~/.bashrc or ~/.zshrc:
+Add this to your ~/.bashrc or ~/.zshrc or ~./bash_profile:
 
-```alias pingme='python /full/path/to/pingme.py'```
+```alias pingme='python /full/path/to/ping.py'```
 
 Now you can run:
 
