@@ -6,6 +6,7 @@ import platform
 import socket
 import shlex
 import subprocess
+from telegram_notifier import TelegramNotifier
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -41,9 +42,10 @@ def get_machine_info():
     os_info = platform.system() + " " + platform.release()
     return hostname, os_info
 
-def run_task(command_with_args):
+def run_task(command_with_args, notifier):
     start_time = time.time()
     started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     exit_code = os.system(command_with_args)
     duration = time.time() - start_time
 
@@ -56,8 +58,6 @@ def run_task(command_with_args):
         status_message = f"Failed \\(exit code {exit_code}\\)"
 
     hostname, os_info = get_machine_info()
-
-    # Format and escape command string
     escaped_cmd = escape_markdown(command_with_args)
 
     message = (
@@ -71,7 +71,7 @@ def run_task(command_with_args):
         f"*OS:* `{escape_markdown(os_info)}`"
     )
 
-    send_telegram_message(message)
+    notifier.send(message)
 
 def check_for_updates():
     try:
@@ -96,5 +96,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     task_command = ' '.join(shlex.quote(arg) for arg in sys.argv[1:])
-    run_task(task_command)
+    notifier = TelegramNotifier()
+    run_task(task_command, notifier)
 
