@@ -16,11 +16,7 @@ Setup
 
 1. Clone the repo and install dependencies
 
-git clone https://github.com/yourusername/pingme.git
-cd pingme
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+git clone https://github.com/colbysprague/pingme.git
 
 2. Set up your .env file
 
