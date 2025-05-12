@@ -5,8 +5,26 @@ import sys
 import platform
 import socket
 import shlex
+import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
+
+def check_for_updates():
+    try:
+        subprocess.run(["git", "fetch"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        local = subprocess.check_output(["git", "rev-parse", "@"]).strip()
+        remote = subprocess.check_output(["git", "rev-parse", "@{u}"]).strip()
+
+        if local != remote:
+            print("⚠️  Updates are available in the remote repository. Consider running `git pull`.")
+    except subprocess.CalledProcessError:
+        # Fail silently if not in a Git repo or upstream not set
+        pass
+    except Exception as e:
+        print("Error checking for updates:", e)
+
+check_for_updates()
 
 # Load environment variables from .env in the same directory
 env_path = os.path.join(os.path.dirname(__file__), '.env')
