@@ -2,7 +2,7 @@
 
 pingme is a lightweight Python utility that runs any shell command and sends a notification to your Telegram account when it completes — with success or failure status, runtime duration, and system info.
 
-Useful for long-running scripts, background jobs, or just keeping tabs on your terminal tasks.
+Useful for long-running scripts, background jobs, etc. 
 
 Features
 
