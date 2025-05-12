@@ -9,23 +9,6 @@ import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
 
-def check_for_updates():
-    try:
-        subprocess.run(["git", "fetch"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-        local = subprocess.check_output(["git", "rev-parse", "@"]).strip()
-        remote = subprocess.check_output(["git", "rev-parse", "@{u}"]).strip()
-
-        if local != remote:
-            print("⚠️  Updates are available in the remote repository. Consider running `git pull`.")
-    except subprocess.CalledProcessError:
-        # Fail silently if not in a Git repo or upstream not set
-        pass
-    except Exception as e:
-        print("Error checking for updates:", e)
-
-check_for_updates()
-
 # Load environment variables from .env in the same directory
 env_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(env_path)
@@ -60,7 +43,7 @@ def get_machine_info():
 
 def run_task(command_with_args):
     start_time = time.time()
-    started_at = timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    started_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     exit_code = os.system(command_with_args)
     duration = time.time() - start_time
 
@@ -90,10 +73,28 @@ def run_task(command_with_args):
 
     send_telegram_message(message)
 
+def check_for_updates():
+    try:
+        subprocess.run(["git", "fetch"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+        local = subprocess.check_output(["git", "rev-parse", "@"]).strip()
+        remote = subprocess.check_output(["git", "rev-parse", "@{u}"]).strip()
+
+        if local != remote:
+            print("⚠️  Updates are available in the remote repository. Consider running `git pull`.")
+    except subprocess.CalledProcessError:
+        # Fail silently if not in a Git repo or upstream not set
+        pass
+    except Exception as e:
+        print("Error checking for updates:", e)
+
 if __name__ == "__main__":
+    check_for_updates()
+
     if len(sys.argv) < 2:
         print("Please provide the task/command to run.")
         sys.exit(1)
 
     task_command = ' '.join(shlex.quote(arg) for arg in sys.argv[1:])
     run_task(task_command)
+
