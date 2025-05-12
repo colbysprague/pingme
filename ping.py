@@ -60,7 +60,7 @@ def run_task(command_with_args):
     escaped_cmd = escape_markdown(command_with_args)
 
     message = (
-        f"{escaped_cmd} completed w status: {status_message} {emoji}\n"
+        f"`{escaped_cmd}` completed: {status_message} {emoji}\n"
         f"``` {escaped_cmd} ```"
         f"*Status*: `{status_message}`\n"
         f"*Command:* `{escaped_cmd}`\n"
